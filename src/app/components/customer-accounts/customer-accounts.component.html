@@ -1,0 +1,88 @@
+<div class="container">
+  <ng-container *ngIf="customerAccountsObservable | async as listAccounts">
+    <div class="card mt-3 col-md-8 offset-2">
+      <div class="card-header">Accounts</div>
+      <div class="card-body">
+        <div class="mt-2">
+          <div>
+            <label>Customer ID :</label>
+            <label
+              ><strong class="text-success">{{
+                listAccounts[0].customerDTO.id
+              }}</strong></label
+            >
+          </div>
+          <div>
+            <label>Name :</label>
+            <label
+              ><strong class="text-success">{{
+                listAccounts[0].customerDTO.name
+              }}</strong></label
+            >
+          </div>
+          <div>
+            <label>Email :</label>
+            <label
+              ><strong class="text-success">{{
+                listAccounts[0].customerDTO.email
+              }}</strong></label
+            >
+          </div>
+        </div>
+        <div class="card mt-3" *ngFor="let account of listAccounts">
+          <div class="card-header">
+            Account Id : <strong>{{ account.id }}</strong>
+          </div>
+          <div class="card-body">
+            <div class="mt-2 mb-2">
+              <label> Type : </label>
+              <label
+                ><strong>{{ account.type }} </strong>
+              </label>
+            </div>
+            <div class="mt-2 mb-2">
+              <label> Creation Date : </label>
+              <label
+                ><strong
+                  >{{ account.dateCreation | date : "dd-MM-YYYY mm:ss" }}
+                </strong>
+              </label>
+            </div>
+            <div class="mt-2 mb-2">
+              <label> Status : </label>
+              <label
+                ><strong>{{ account.status }} </strong>
+              </label>
+            </div>
+            <div class="mt-2 mb-2">
+              <label> Balance : </label>
+              <label
+                ><strong>{{ account.balance | number : "1.2-2" }} </strong>
+              </label>
+            </div>
+            <div class="mt-2 mb-2" *ngIf="account.type == 'SavingAccount'">
+              <label> InterstRate : </label>
+              <label
+                ><strong>{{ account.interstRate }} </strong>
+              </label>
+            </div>
+            <div class="mt-2 mb-2" *ngIf="account.type == 'CurrentAccount'">
+              <label> Overdraft : </label>
+              <label
+                ><strong>{{ account.overdraft | number : "1.2-2" }} </strong>
+              </label>
+            </div>
+            <div class="d-grid">
+              <button
+                class="btn btn-outline-success"
+                (click)="goToAccountOperations(account.id)"
+              >
+                view transactions or make a transaction
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+</div>
